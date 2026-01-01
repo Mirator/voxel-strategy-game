@@ -1,0 +1,64 @@
+/* App root styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #1a1a2e;
+}
+
+/* Selection prevention for game elements */
+.app canvas {
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+/* Prevent text selection during gameplay */
+.game-hud,
+.combat-hud,
+.town-interface {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Allow text selection in menus */
+.main-menu input,
+.main-menu select {
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+/* Loading indicator */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4a90d9;
+  font-size: 1.5rem;
+}
+
+.loading::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
