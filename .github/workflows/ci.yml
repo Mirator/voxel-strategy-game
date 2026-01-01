@@ -127,9 +127,16 @@ jobs:
         working-directory: voxel-strategy
         run: npm run build
 
+      - name: Copy public assets
+        run: cp voxel-strategy/public/vite.svg ./vite.svg
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: voxel-strategy/dist/
+          path: |
+            index.html
+            assets/
+            vite.svg
+            .nojekyll
           retention-days: 7
