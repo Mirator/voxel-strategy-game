@@ -2,6 +2,8 @@
 
 A 3D voxel-based turn-based strategy game inspired by Heroes of Might and Magic, built with React, Three.js, and TypeScript.
 
+## 🎮 [Play Now](https://mirator.github.io/voxel-strategy-game/)
+
 ![Game Screenshot](docs/screenshot.png)
 
 ## 🎮 Features
