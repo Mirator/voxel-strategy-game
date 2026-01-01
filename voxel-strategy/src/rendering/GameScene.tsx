@@ -46,7 +46,7 @@ function GroundPlane({ width, height }: { width: number; height: number }) {
   const currentFaction = useGameStore((state) => state.currentFaction);
   
   const handleClick = useCallback(
-    (event: any) => {
+    (event: THREE.Intersection & { stopPropagation: () => void; point: THREE.Vector3 }) => {
       event.stopPropagation();
       
       if (!selectedHeroId) return;

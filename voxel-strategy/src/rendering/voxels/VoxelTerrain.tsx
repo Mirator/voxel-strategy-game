@@ -1,5 +1,5 @@
 // Voxel-based terrain rendering
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { TerrainType, Tile } from '../../core/types';
@@ -74,7 +74,7 @@ export function VoxelTerrain({
   }, [visibleTiles]);
 
   // Update instanced mesh
-  useMemo(() => {
+  useEffect(() => {
     if (!meshRef.current) return;
     
     const mesh = meshRef.current;
@@ -162,6 +162,12 @@ export function VoxelTerrain({
   );
 }
 
+// Simple deterministic hash for consistent tree placement
+function seededRandom(x: number, y: number, i: number): number {
+  const hash = Math.sin(x * 12.9898 + y * 78.233 + i * 37.719) * 43758.5453;
+  return hash - Math.floor(hash);
+}
+
 // Decoration generation for forests and other terrain features
 export function TerrainDecorations({
   tiles,
@@ -179,11 +185,11 @@ export function TerrainDecorations({
       for (let x = visibleRange.minX; x <= visibleRange.maxX; x++) {
         const tile = tiles[y]?.[x];
         if (tile?.terrain === 'forest') {
-          // Multiple trees per tile
-          const treeCount = 2 + Math.floor(Math.random() * 2);
+          // Multiple trees per tile (deterministic based on position)
+          const treeCount = 2 + Math.floor(seededRandom(x, y, 0) * 2);
           for (let i = 0; i < treeCount; i++) {
-            const offsetX = (Math.random() - 0.5) * 0.8;
-            const offsetZ = (Math.random() - 0.5) * 0.8;
+            const offsetX = (seededRandom(x, y, i * 2 + 1) - 0.5) * 0.8;
+            const offsetZ = (seededRandom(x, y, i * 2 + 2) - 0.5) * 0.8;
             const height = TERRAIN_HEIGHTS.forest + tile.elevation * 0.5;
             positions.push(new THREE.Vector3(x + offsetX, height, y + offsetZ));
           }

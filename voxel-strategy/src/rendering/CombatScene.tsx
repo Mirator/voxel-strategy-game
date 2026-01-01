@@ -226,9 +226,22 @@ function CombatContent() {
   const [selectedUnit, setSelectedUnit] = useState<CombatUnit | null>(null);
   const [targetMode, setTargetMode] = useState<'move' | 'attack' | null>(null);
   
-  if (!combatState) return null;
-  
-  const { attackerUnits, defenderUnits, turnOrder, currentUnitIndex, gridWidth, gridHeight } = combatState;
+  // Extract values with defaults for when combatState is null
+  const attackerUnits = useMemo(
+    () => combatState?.attackerUnits ?? [],
+    [combatState?.attackerUnits]
+  );
+  const defenderUnits = useMemo(
+    () => combatState?.defenderUnits ?? [],
+    [combatState?.defenderUnits]
+  );
+  const turnOrder = useMemo(
+    () => combatState?.turnOrder ?? [],
+    [combatState?.turnOrder]
+  );
+  const currentUnitIndex = combatState?.currentUnitIndex ?? 0;
+  const gridWidth = combatState?.gridWidth ?? 8;
+  const gridHeight = combatState?.gridHeight ?? 6;
   const currentUnit = turnOrder[currentUnitIndex];
   const isCurrentUnitAttacker = attackerUnits.includes(currentUnit);
   
@@ -319,6 +332,9 @@ function CombatContent() {
     },
     [targetMode, selectedUnit, validAttackTargets, currentUnit, executeCombatAction]
   );
+
+  // Early return after all hooks
+  if (!combatState) return null;
 
   return (
     <>
