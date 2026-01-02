@@ -1,6 +1,6 @@
 # voxel-strategy-game
 
-A 3D voxel-based strategy game built with React, Three.js, and TypeScript.
+**Voxel Conquest** - A 3D voxel-based turn-based strategy game inspired by Heroes of Might and Magic. Command heroes, recruit armies, manage resources, and conquer a procedurally generated world in tactical turn-based combat. Built with React, Three.js, and TypeScript.
 
 🎮 **[Play the Game](https://mirator.github.io/voxel-strategy-game/)**
 
